@@ -27,7 +27,8 @@ GenerateSchedule
 Nested Loop:
 Every player vs every other"]
 C1 --> C2["Output: List<Match>"]
-Simulation -> Simulationp[label="Fpr Each Match"];
+Simulation -> Simulationp[label="Fpr Each Match"]
+
 D --> D1["BadmintonSimulationEngine
 Simulate Match"]
 D1 --> D2["Calculate Performance
