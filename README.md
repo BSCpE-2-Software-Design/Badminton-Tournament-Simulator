@@ -1,73 +1,39 @@
 # Badminton-Tournament-Simulator
 ```mermaid
----
-config:
-layout: elk
----
-graph TD
-A["Badminton Tournament Simulator"] --> B["Domain Models"]
-A --> C["Scheduler Component"]
-A --> D["Simulation Engine"]
-A --> E["Result Tracker"]
-A[START: Tournament System]
+sequenceDiagram
+    autonumber
+    participant BT as Badminton Tournament Simulator
+    participant Sched as RoundRobinScheduler
+    participant Eng as BadmintonSimulationEngine
+    participant Track as StandingTracker
+    participant Disp as DisplayStandings
+    participant Match as Match
+    participant Player as Player
 
-subgraph INPUT
-B[Player Data]
-B[Match Data]
-end
-B --> B1["Player
-- Name
-- Agility
-- Power
-- Wins
-- PointsScored"]
-B --> B2["Match
-- Home Player
-- Away Player
-- HomeScore
-- AwayScore
-- IsCompleted"]
-
-C --> C1["RoundRobinScheduler
-GenerateSchedule
-Nested Loop:
-Every player vs every other"]
-C1 --> C2["Output: List<Match>"]
-
-D --> D1["BadmintonSimulationEngine
-Simulate Match"]
-D1 --> D2["Calculate Performance
-Home: Power + Variance 1-20
-Away: Agility + Variance 1-20"]
-D2 --> D3["Determine Winner
-Higher Performance = 21 points
-Loser = Random 10-20 points"]
-D3 --> D4["Mark IsCompleted = true"]
-
-E --> E1["StandingTracker
-RecordMatch"]
-E1 --> E2["Update Player Stats
-- Add Scores to PointsScored
-- Increment Winner's Wins"]
-E --> E3["DisplayStandings
-Sort by Wins
-Print Leaderboard"]
-
-C2 --> F["Tournament Flow"]
-F --> G["For Each Match:
-1. Simulate
-2. Record
-3. Display Result"]
-G --> H["Final Standings"]
-
-style A stroke:#818cf8,fill:#eef2ff,color:#1e1b4b,stroke-width:3px
-style B stroke:#2dd4bf,fill:#f0fdfa,color:#1e1b4b
-style C stroke:#a78bfa,fill:#f5f3ff,color:#1e1b4b
-style D stroke:#fb923c,fill:#fff7ed,color:#1e1b4b
-style E stroke:#4ade80,fill:#f0fdf4,color:#1e1b4b
-style F stroke:#38bdf8,fill:#f0f9ff,color:#1e1b4b,stroke-width:2px
-style G stroke:#38bdf8,fill:#f0f9ff,color:#1e1b4b
-style H stroke:#fb7185,fill:#fff1f2,color:#1e1b4b,stroke-width:2px
+    Note over BT: Tournament Flow Starts
+    BT->>+Sched: GenerateSchedule()
+    Sched->>Sched: Nested Loop: Every player vs every other
+    Sched-->>-BT: List<Match>
+    loop For Each Match in Schedule
+        BT->>+Eng: SimulateMatch(match)
+        Eng->>+Match: Calculate Performance<br/>Home: Power + Variance(1-20)<br/>Away: Agility + Variance(1-20)
+        Match->>+Eng: Determine Winner<br/>Higher perf = 21 points<br/>Loser = Random(10-20)
+        Eng->>+Match: Set IsCompleted = true<br/>Set HomeScore, AwayScore
+        Match-->>-Eng: Updated Match
+        Eng->>+Track: RecordMatch(match)
+        Track->>+Player: Update Winner Stats<br/>(Wins++, PointsScored += score)
+        Track->>+Player: Update Loser Stats<br/>(PointsScored += score)
+        Player-->>-Track: Stats Updated
+        Track-->>-Eng: Match Recorded
+        Eng->>+Disp: DisplayMatchResult(match)
+        Disp-->>-Eng: Result Displayed
+        Eng-->>-BT: Match Completed
+    end
+    Note over BT,Disp: Final Standings
+    BT->>+Disp: DisplayStandings()
+    Disp->>Disp: Sort Players by Wins
+    Disp-->>-BT: Print Leaderboard<br/>(Name, Wins, PointsScored)
+    Note over BT: Tournament Complete
 ```
 ```mermaid
 ---
@@ -138,4 +104,3 @@ class Player,Match model
 class TournamentScheduler,BadmintonEngine,StatTracker component
 class Program coord
 class interfaces,models,components,coordinator section
-```
