@@ -11,7 +11,7 @@ A --> D["Simulation Engine"]
 A --> E["Result Tracker"]
 A[START: Tournament System]
 
-subgraph INPUT
+graph INPUT
 B[Player Data]
 B[Match Data]
 end
