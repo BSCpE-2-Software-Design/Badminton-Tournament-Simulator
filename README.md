@@ -29,6 +29,8 @@ B --> B2["Match
 - IsCompleted"]
 
 C--Generate Matches--> D
+D--Simulate Match--> E
+E--Update Stats--> F
 C --> C1["RoundRobinScheduler
 GenerateSchedule
 Nested Loop:
