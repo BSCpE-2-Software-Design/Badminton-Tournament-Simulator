@@ -11,7 +11,7 @@ A --> D["Simulation Engine"]
 A --> E["Result Tracker"]
 A[START: Tournament System]
 
-graph INPUT
+subgraph INPUT
 B[Player Data]
 B[Match Data]
 end
@@ -27,6 +27,11 @@ B --> B2["Match
 - HomeScore
 - AwayScore
 - IsCompleted"]
+subgraph PROCESS
+C[RoundRobin Scheduler]
+D[Simulation Engine<br/>(With variance)]
+E[Result Tracker<br/>(Observer Pattern)
+end
 C --> C1["RoundRobinScheduler
 GenerateSchedule
 Nested Loop:
