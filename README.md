@@ -28,11 +28,7 @@ B --> B2["Match
 - AwayScore
 - IsCompleted"]
 
-subgraph PROCESS
-C[Round-Robin Scheduler]
-D[Simulation Engine<br/>(With Variance)]
-E[Result Tracker<br/>(Observer Pattern)]
-end
+C--Generate Matches--> D
 C --> C1["RoundRobinScheduler
 GenerateSchedule
 Nested Loop:
