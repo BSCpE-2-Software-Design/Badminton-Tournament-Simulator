@@ -9,7 +9,12 @@ A["Badminton Tournament Simulator"] --> B["Domain Models"]
 A --> C["Scheduler Component"]
 A --> D["Simulation Engine"]
 A --> E["Result Tracker"]
+A[START: Tournament System]
 
+subgraph INPUT
+B[Player Data]
+B[Match Data]
+end
 B --> B1["Player
 - Name
 - Agility
