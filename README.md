@@ -27,10 +27,11 @@ B --> B2["Match
 - HomeScore
 - AwayScore
 - IsCompleted"]
+
 subgraph PROCESS
-C[RoundRobin Scheduler]
+C[Round-Robin Scheduler]
 D[Simulation Engine<br/>(With variance)]
-E[Result Tracker<br/>(Observer Pattern)
+E[Result Tracker<br/>(Observer Pattern)]
 end
 C --> C1["RoundRobinScheduler
 GenerateSchedule
