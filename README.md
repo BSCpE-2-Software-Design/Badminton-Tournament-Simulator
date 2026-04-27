@@ -30,7 +30,7 @@ B --> B2["Match
 
 subgraph PROCESS
 C[Round-Robin Scheduler]
-D[Simulation Engine<br/>(With variance)]
+D[Simulation Engine<br/>(With Variance)]
 E[Result Tracker<br/>(Observer Pattern)]
 end
 C --> C1["RoundRobinScheduler
