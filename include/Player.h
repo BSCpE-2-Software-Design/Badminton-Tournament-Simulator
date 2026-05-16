@@ -8,35 +8,36 @@ class Player {
 private:
     int id;
     std::string name;
-    int power;           // Strength attribute (1-100)
-    int agility;         // Speed attribute (1-100)
-    int stamina;         // Endurance attribute (1-100)
+    int skillLevel;    // 1-10
+    int stamina;       // 1-10
     int wins;
     int losses;
-    int pointsScored;
-    int pointsAgainst;
+    int totalPoints;
+    bool isActive;     // For tournament participation
 
 public:
     Player();
-    Player(int id, const std::string& name, int power, int agility, int stamina);
-
+    Player(int id, const std::string& name, int skillLevel, int stamina);
+    
     // Getters
     int getId() const;
     std::string getName() const;
-    int getPower() const;
-    int getAgility() const;
+    int getSkillLevel() const;
     int getStamina() const;
     int getWins() const;
     int getLosses() const;
-    int getPointsScored() const;
-    int getPointsAgainst() const;
-    double getWinRate() const;
-
-    // Setters for statistics
-    void addWin(int points);
-    void addLoss(int points);
-    void resetStats();
-
+    int getTotalPoints() const;
+    bool getIsActive() const;
+    
+    // Setters
+    void setWins(int w);
+    void setLosses(int l);
+    void setTotalPoints(int p);
+    void addWin();
+    void addLoss();
+    void addPoints(int points);
+    void setActive(bool active);
+    
     // Display
     void display() const;
 };
